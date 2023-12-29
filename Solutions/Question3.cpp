@@ -168,7 +168,9 @@ void inputTwoNumbers(int input_array[])
     if(warning == true)
     {
         warning_count++;
-        cout << "\nWARNING " << warning_count << " Round " << rounds_count+1 << " is not considered\n";
+        cout << "\nWARNING " << warning_count;
+        rounds_count--;
+        
         if(warning_count == 4)
         {
             cout << "\n WARNING 4 ***END OF PROGRAM*** ";
@@ -179,7 +181,7 @@ void inputTwoNumbers(int input_array[])
 void colorcheck(grid square[36])
 {
     bool wins = false;
-    if((number_one >=1 && number_one <=36) && (number_two >=1 && number_two <= 36))
+    if((number_one >=1 && number_one <=36) && (number_two >=1 && number_two <= 36) && (warning_count < 4))
     {
         for (int i=0; i<36; i++)
         {
@@ -214,8 +216,11 @@ void colorcheck(grid square[36])
     }
     else 
     {
+        if(warning_count < 4)
+        {
         cout << "\nINCORRECT INPUT\n";
         inputTwoNumbers(array_in);
+        }
     }
 }
 
@@ -225,19 +230,22 @@ int main()
     grid square[36];
     
     
-    do
+    // do
+    // while((warning_count != 4) ||  (wins_count != 3) || (rounds_count != 5))
+    
+    for (int i=1; i<=5; i++) // iterate to maximum of 5 rounds
     {
     replicategrid(square);
     inputTwoNumbers(array_in);
     colorcheck(square);
 
-    if(wins_count == 3 || rounds_count == 5)
+    if((wins_count == 3) || (warning_count == 4))
             {
-                cout << "End of Program";
+                // cout << "\nEnd of Program";
                 break;
             }
-    } 
-    while(warning_count != 4);
+    }
+    // while(warning_count != 4 || wins_count == 3 || rounds_count == 5); // change loop
     
     cout << "\n Total Warnings " << warning_count;
     cout << "\n Total Rounds " << rounds_count;
@@ -245,5 +253,3 @@ int main()
     
     return 0;
 }
-
-
